@@ -1,97 +1,353 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
 <meta charset="UTF-8">
-<title>Día de la Mujer 🌸</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Feliz Día de la Mujer 🌸</title>
 
 <style>
+
 body{
-    margin:0;
-    font-family: Arial, sans-serif;
-    text-align:center;
-    background: linear-gradient(135deg,#ff9ad5,#b57edc);
-    color:white;
+margin:0;
+font-family:Arial, sans-serif;
+text-align:center;
+background:linear-gradient(135deg,#ff9ad5,#b57edc);
+color:white;
+overflow-x:hidden;
+overflow-y:auto;
 }
+
+/* fondo animado */
+
+body::before{
+content:"";
+position:fixed;
+width:100%;
+height:100%;
+background:radial-gradient(circle, rgba(255,255,255,0.2) 1px, transparent 1px);
+background-size:50px 50px;
+animation:fondo 20s linear infinite;
+z-index:-1;
+}
+
+@keyframes fondo{
+from{transform:translateY(0);}
+to{transform:translateY(100px);}
+}
+
+/* titulo */
 
 h1{
-    margin-top:80px;
-    font-size:50px;
-    animation: brillo 2s infinite alternate;
+margin-top:40px;
+font-size:clamp(30px,6vw,55px);
+animation:latido 2s infinite alternate;
 }
 
-@keyframes brillo{
-    from{transform:scale(1);}
-    to{transform:scale(1.1);}
+@keyframes latido{
+from{transform:scale(1);}
+to{transform:scale(1.1);}
 }
+
+/* efecto escribir */
+
+.typewriter{
+border-right:3px solid white;
+overflow:hidden;
+margin:auto;
+max-width:90%;
+white-space:nowrap;
+animation:typing 4s steps(60,end) forwards, blink 0.8s infinite;
+}
+
+@keyframes typing{
+from{width:0}
+to{width:100%}
+}
+
+@keyframes blink{
+50%{border-color:transparent;}
+}
+
+/* texto */
 
 p{
-    font-size:20px;
-    width:60%;
-    margin:auto;
+font-size:clamp(16px,3vw,20px);
+max-width:700px;
+margin:auto;
+padding:10px;
 }
 
+/* botones */
+
 button{
-    margin-top:30px;
-    padding:15px 30px;
-    font-size:18px;
-    border:none;
-    border-radius:10px;
-    background:white;
-    color:#b57edc;
-    cursor:pointer;
-    transition:0.3s;
+display:block;
+margin:15px auto;
+width:80%;
+max-width:250px;
+padding:12px 25px;
+font-size:clamp(16px,3vw,18px);
+border:none;
+border-radius:10px;
+background:white;
+color:#b57edc;
+cursor:pointer;
+transition:0.3s;
+position:relative;
+overflow:hidden;
 }
 
 button:hover{
-    transform:scale(1.1);
+transform:scale(1.1);
 }
 
-/* corazones cayendo */
-.corazon{
-    position:fixed;
-    top:-10px;
-    font-size:20px;
-    animation: caer 5s linear infinite;
+/* brillo botón */
+
+button::after{
+content:"";
+position:absolute;
+top:0;
+left:-100%;
+width:100%;
+height:100%;
+background:linear-gradient(120deg,transparent,rgba(255,255,255,0.8),transparent);
+transition:0.5s;
+}
+
+button:hover::after{
+left:100%;
+}
+
+/* modal */
+
+.modal{
+display:none;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.5);
+justify-content:center;
+align-items:center;
+animation:fade 0.4s;
+}
+
+@keyframes fade{
+from{opacity:0;}
+to{opacity:1;}
+}
+
+/* tarjeta */
+
+.tarjeta{
+background:white;
+color:#b57edc;
+padding:25px;
+border-radius:15px;
+max-width:350px;
+text-align:center;
+animation:zoom 0.4s;
+box-shadow:0 10px 30px rgba(0,0,0,0.3);
+}
+
+@keyframes zoom{
+from{transform:scale(0.5);}
+to{transform:scale(1);}
+}
+
+.cerrar{
+float:right;
+cursor:pointer;
+font-size:18px;
+}
+
+/* flores */
+
+.flor{
+position:fixed;
+top:-10px;
+animation:caer linear infinite, girar 4s linear infinite;
 }
 
 @keyframes caer{
-    to{
-        transform:translateY(100vh);
-    }
+to{transform:translateY(100vh);}
 }
+
+@keyframes girar{
+from{rotate:0deg;}
+to{rotate:360deg;}
+}
+
+/* corazones */
+
+.corazon{
+position:fixed;
+font-size:20px;
+animation:corazonSube 3s linear forwards;
+}
+
+@keyframes corazonSube{
+from{transform:translateY(0); opacity:1;}
+to{transform:translateY(-150px); opacity:0;}
+}
+
+/* ajustes para celular */
+
+@media (max-width:600px){
+
+.typewriter{
+white-space:normal;
+border-right:none;
+animation:none;
+}
+
+h1{
+font-size:32px;
+}
+
+}
+
 </style>
+
 </head>
 
 <body>
 
 <h1>🌸 Feliz Día de la Mujer 🌸</h1>
 
-<p>
-Hoy celebramos la fuerza, valentía e inteligencia de todas las mujeres.
-Gracias por inspirar al mundo cada día.
+<p class="typewriter">
+Hoy celebramos la fuerza, valentía e inteligencia de todas las mujeres. Gracias por inspirar al mundo cada día.
 </p>
 
-<button onclick="mensaje()">Ver mensaje especial</button>
+<br>
+
+<button onclick="abrirMensaje()">💌 Ver mensaje especial</button>
+<button onclick="abrirSorpresa()">✨ Mensaje sorpresa</button>
+<button onclick="toggleMusica()">🎵 Música</button>
+
+<audio id="musica" loop preload="auto">
+<source src="musica.mp3" type="audio/mpeg">
+</audio>
+
+<!-- MENSAJE -->
+
+<div id="mensajeBox" class="modal">
+<div class="tarjeta">
+<span class="cerrar" onclick="cerrarModal()">✖</span>
+<h3>💜 Mensaje especial</h3>
+<p>
+Tu sonrisa, tu fuerza y tu corazón hacen que cada día sea especial. Me siento muy afortunado de tenerte y nunca olvides que eres muy importante para mi 💖.
+</p>
+</div>
+</div>
+
+<!-- SORPRESA -->
+
+<div id="sorpresaBox" class="modal">
+<div class="tarjeta">
+<span class="cerrar" onclick="cerrarModal()">✖</span>
+<h3>🌸 Sorpresa</h3>
+<p>
+Eres una mujer increíble que llena mi vida de alegría. Gracias por ser parte de mi mundo 💖.
+</p>
+</div>
+</div>
 
 <script>
-function mensaje(){
-    alert("✨ ¡Feliz Día de la Mujer! te deseo lo mejor mi querida, disfruta a lo maximo y no olvides que te quiero mucho.");
+
+/* lanzar corazones al cargar */
+
+window.addEventListener("load", function(){
+lanzarCorazones(25);
+});
+
+/* abrir modales */
+
+function abrirMensaje(){
+document.getElementById("mensajeBox").style.display="flex";
+lanzarCorazones(15);
 }
 
-/* crear corazones */
+function abrirSorpresa(){
+document.getElementById("sorpresaBox").style.display="flex";
+lanzarCorazones(30);
+}
+
+/* cerrar */
+
+function cerrarModal(){
+document.getElementById("mensajeBox").style.display="none";
+document.getElementById("sorpresaBox").style.display="none";
+}
+
+/* flores */
+
+const flores=["🌸","💮","🌺","🌷","🌹"];
+
 setInterval(()=>{
-    const corazon=document.createElement("div");
-    corazon.classList.add("corazon");
-    corazon.innerHTML="💜";
-    corazon.style.left=Math.random()*100+"vw";
-    corazon.style.animationDuration=(Math.random()*3+3)+"s";
 
-    document.body.appendChild(corazon);
+const flor=document.createElement("div");
 
-    setTimeout(()=>{
-        corazon.remove();
-    },5000);
-},300);
+flor.classList.add("flor");
+
+flor.innerHTML=flores[Math.floor(Math.random()*flores.length)];
+
+flor.style.left=Math.random()*100+"vw";
+
+flor.style.fontSize=(Math.random()*20+15)+"px";
+
+flor.style.animationDuration=(Math.random()*3+3)+"s";
+
+document.body.appendChild(flor);
+
+setTimeout(()=>{
+flor.remove();
+},5000);
+
+},250);
+
+/* corazones */
+
+function lanzarCorazones(cantidad){
+
+for(let i=0;i<cantidad;i++){
+
+const corazon=document.createElement("div");
+
+corazon.classList.add("corazon");
+
+corazon.innerHTML="💜";
+
+corazon.style.left=Math.random()*100+"vw";
+corazon.style.top=Math.random()*80+"vh";
+
+document.body.appendChild(corazon);
+
+setTimeout(()=>{
+corazon.remove();
+},3000);
+
+}
+
+}
+
+/* botón música */
+
+function toggleMusica(){
+
+const musica = document.getElementById("musica");
+
+if(musica.paused){
+musica.currentTime = 149;
+musica.play();
+}else{
+musica.pause();
+}
+
+}
+
 </script>
 
 </body>
